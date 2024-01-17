@@ -6,7 +6,14 @@ export default function App() {
   
   const [goals, setGoals] = useState([])
   const addGoalHandler = () => {
+    /*const newGoalObject = {
+      id: counter++,
+      
+    }*/
+
+
     setGoals(currentGoals => [...currentGoals, newGoal])
+    setNewGoal("")
   }
 
   useEffect(() => {
@@ -32,10 +39,14 @@ export default function App() {
          />
       </View>
       <View style={styles.goalsContainer}>
-        <Text>GOALS</Text>
+        <Text style={styles.goalHeader}>GOALS</Text>
         {goals.map((goal, index) => {
           return (
-            <Text key={index}>{goal}</Text>
+            <View key={index} style={styles.goalItem}> 
+              <Text style={styles.goalText}>
+                {goal}
+              </Text>
+            </View>
           )
         })}
       </View>
@@ -46,25 +57,48 @@ export default function App() {
 const styles = new StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 70,
+    paddingTop: 40,
     paddingHorizontal: 15
   },
   inputContainer: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 20,
+    alignItems: "center",
     borderBottomWidth: 1,
-    borderBottomColor: "#CCCCCC",
+    borderBottomColor: "#5E4B56",
     alignItems: 'center'
   },
   textInput: {
-    borderColor: "#CCCCCC",
+    backgroundColor: "#DBD2DA",
+    borderColor: "#5E4B56",
     borderWidth: 1,
     width: "70%",
-    padding: 10
+    padding: 10,
+    borderRadius: 5,
   },
   goalsContainer: {
     flex: 5,
+    marginTop: 40,
+  },
+  goalItem: {
+    padding: 20,
+    backgroundColor: "#FCD0A1",
+    marginBottom: 10,
+    borderRadius: 10,
+  },
+  goalText: {
+    fontSize: 20,
+    color: "#633503",
+  },
+  goalHeader: {
+    fontSize: 30,
+    fontWeight: "bold",
+    marginBottom: 10,
+    padding: 10,
+    textAlign: "center",
+    color: "#FCD0A1",
+    backgroundColor: "#633503",
+    borderRadius: 10,
   }
 })
