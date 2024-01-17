@@ -1,17 +1,12 @@
-import { View, TextInput, Button, Text, StyleSheet } from 'react-native';
+import { View, TextInput, Button, Text, StyleSheet,ScrollView } from 'react-native';
 import React, { useState, useEffect } from 'react';
 
 export default function App() {
   const [newGoal, setNewGoal] = useState("")
   
   const [goals, setGoals] = useState([])
+
   const addGoalHandler = () => {
-    /*const newGoalObject = {
-      id: counter++,
-      
-    }*/
-
-
     setGoals(currentGoals => [...currentGoals, newGoal])
     setNewGoal("")
   }
@@ -40,15 +35,62 @@ export default function App() {
       </View>
       <View style={styles.goalsContainer}>
         <Text style={styles.goalHeader}>GOALS</Text>
-        {goals.map((goal, index) => {
-          return (
-            <View key={index} style={styles.goalItem}> 
-              <Text style={styles.goalText}>
-                {goal}
-              </Text>
-            </View>
-          )
-        })}
+        <ScrollView>
+          <View style={styles.goalItem}>
+            <Text style={styles.goalText}>
+              Temporary Item 1
+            </Text>
+          </View>
+          <View style={styles.goalItem}>
+            <Text style={styles.goalText}>
+              Temporary Item 1
+            </Text>
+          </View>
+          <View style={styles.goalItem}>
+            <Text style={styles.goalText}>
+              Temporary Item 1
+            </Text>
+          </View>
+          <View style={styles.goalItem}>
+            <Text style={styles.goalText}>
+              Temporary Item 1
+            </Text>
+          </View>
+          <View style={styles.goalItem}>
+            <Text style={styles.goalText}>
+              Temporary Item 1
+            </Text>
+          </View>
+          <View style={styles.goalItem}>
+            <Text style={styles.goalText}>
+              Temporary Item 1
+            </Text>
+          </View>
+          <View style={styles.goalItem}>
+            <Text style={styles.goalText}>
+              Temporary Item 1
+            </Text>
+          </View>
+          <View style={styles.goalItem}>
+            <Text style={styles.goalText}>
+              Temporary Item 1
+            </Text>
+          </View>
+          <View style={styles.goalItem}>
+            <Text style={styles.goalText}>
+              Temporary Item 1
+            </Text>
+          </View>
+          {goals.map((goal, index) => {
+            return (
+              <View key={index} style={styles.goalItem}> 
+                <Text style={styles.goalText}>
+                  {goal}
+                </Text>
+              </View>
+            )
+          })}
+        </ScrollView>
       </View>
     </View>
   );
