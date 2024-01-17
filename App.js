@@ -1,4 +1,11 @@
-import { View, TextInput, Button, Text, StyleSheet,ScrollView } from 'react-native';
+import {
+  View,
+  TextInput,
+  Button,
+  Text,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
 import React, { useState, useEffect } from 'react';
 
 export default function App() {
@@ -36,6 +43,7 @@ export default function App() {
       <View style={styles.goalsContainer}>
         <Text style={styles.goalHeader}>GOALS</Text>
         <ScrollView>
+          <View>
           <View style={styles.goalItem}>
             <Text style={styles.goalText}>
               Temporary Item 1
@@ -80,6 +88,7 @@ export default function App() {
             <Text style={styles.goalText}>
               Temporary Item 1
             </Text>
+          </View>
           </View>
           {goals.map((goal, index) => {
             return (
@@ -142,5 +151,5 @@ const styles = new StyleSheet.create({
     color: "#FCD0A1",
     backgroundColor: "#633503",
     borderRadius: 10,
-  }
+  },
 })
