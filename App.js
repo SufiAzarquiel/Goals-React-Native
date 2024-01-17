@@ -4,7 +4,7 @@ import {
   Button,
   Text,
   StyleSheet,
-  ScrollView,
+  FlatList,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
 
@@ -42,64 +42,18 @@ export default function App() {
       </View>
       <View style={styles.goalsContainer}>
         <Text style={styles.goalHeader}>GOALS</Text>
-        <ScrollView>
-          <View>
-          <View style={styles.goalItem}>
-            <Text style={styles.goalText}>
-              Temporary Item 1
-            </Text>
-          </View>
-          <View style={styles.goalItem}>
-            <Text style={styles.goalText}>
-              Temporary Item 1
-            </Text>
-          </View>
-          <View style={styles.goalItem}>
-            <Text style={styles.goalText}>
-              Temporary Item 1
-            </Text>
-          </View>
-          <View style={styles.goalItem}>
-            <Text style={styles.goalText}>
-              Temporary Item 1
-            </Text>
-          </View>
-          <View style={styles.goalItem}>
-            <Text style={styles.goalText}>
-              Temporary Item 1
-            </Text>
-          </View>
-          <View style={styles.goalItem}>
-            <Text style={styles.goalText}>
-              Temporary Item 1
-            </Text>
-          </View>
-          <View style={styles.goalItem}>
-            <Text style={styles.goalText}>
-              Temporary Item 1
-            </Text>
-          </View>
-          <View style={styles.goalItem}>
-            <Text style={styles.goalText}>
-              Temporary Item 1
-            </Text>
-          </View>
-          <View style={styles.goalItem}>
-            <Text style={styles.goalText}>
-              Temporary Item 1
-            </Text>
-          </View>
-          </View>
-          {goals.map((goal, index) => {
-            return (
-              <View key={index} style={styles.goalItem}> 
+        <FlatList
+          data={goals}
+          renderItem={
+            ({item}) => (
+              <View key={item} style={styles.goalItem}> 
                 <Text style={styles.goalText}>
-                  {goal}
+                  {item.text}
                 </Text>
               </View>
             )
-          })}
-        </ScrollView>
+          }
+        />
       </View>
     </View>
   );
