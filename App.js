@@ -11,12 +11,29 @@ import React, { useState, useEffect } from 'react';
 export default function App() {
   const [newGoal, setNewGoal] = useState("")
   
-  const [goals, setGoals] = useState([])
+  const [goals, setGoals] = useState([
+    { text: "Learn React Native" },
+    { text: "Learn React Native" },
+    { text: "Learn React Native" },
+    { text: "Learn React Native" },
+    { text: "Learn React Native" },
+    { text: "Learn React Native" },
+    { text: "Learn React Native" },
+    { text: "Learn React Native" },
+    { text: "Learn React Native" },
+    { text: "Learn React Native" },
+    { text: "Learn React Native" },
+  ])
 
   const addGoalHandler = () => {
-    setGoals(currentGoals => [...currentGoals, newGoal])
-    setNewGoal("")
-  }
+    const newGoalObject = {
+      id: Math.random().toString(), // Use a more reliable way to generate unique IDs in production
+      text: newGoal,
+    };
+
+    setGoals((currentGoals) => [...currentGoals, newGoalObject]);
+    setNewGoal(""); // Clear the input after adding a goal
+  };
 
   useEffect(() => {
     console.log("new goal list:", goals)
@@ -51,8 +68,7 @@ export default function App() {
                   {item.text}
                 </Text>
               </View>
-            )
-          }
+            )}
         />
       </View>
     </View>
