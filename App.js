@@ -7,63 +7,54 @@ import {
   FlatList,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
+import GoalInput from './components/GoalInput';
 
 export default function App() {
-  const [newGoal, setNewGoal] = useState("")
+  const [newGoalText, setNewGoal] = useState("")
   
   const [goals, setGoals] = useState([
-    { text: "Learn React Native" },
-    { text: "Learn React Native" },
-    { text: "Learn React Native" },
-    { text: "Learn React Native" },
-    { text: "Learn React Native" },
-    { text: "Learn React Native" },
-    { text: "Learn React Native" },
-    { text: "Learn React Native" },
-    { text: "Learn React Native" },
-    { text: "Learn React Native" },
-    { text: "Learn React Native" },
+    { id: 1, text: "Learn React Native" },
+    { id: 2, text: "Learn Redux" },
+    { id: 3, text: "Learn React Navigation" },
+    { id: 4, text: "Learn React Native Paper" },
+    { id: 5, text: "Learn React Native Elements" },
+    { id: 6, text: "Learn React Native Vector Icons" },
+    { id: 7, text: "Learn React Native Gesture Handler" },
+    { id: 8, text: "Learn React Native Reanimated" },
+    { id: 9, text: "Learn React Native Safe Area Context" },
   ])
 
   const addGoalHandler = () => {
-    const newGoalObject = {
-      id: Math.random().toString(), // Use a more reliable way to generate unique IDs in production
-      text: newGoal,
+    const newGoal = {
+      id: Date.now(), 
+      text: newGoalText,
     };
 
-    setGoals((currentGoals) => [...currentGoals, newGoalObject]);
-    setNewGoal(""); // Clear the input after adding a goal
+    setGoals((currentGoals) => [...currentGoals, newGoal]);
+    setNewGoal("");
   };
 
+  // Log goal list on change
   useEffect(() => {
-    console.log("new goal list:", goals)
+    console.log(goals)
   }, [goals])
 
+  // Log goal text from input on change
   useEffect(() => {
-    console.log("new goal:", newGoal)
-  }, [newGoal])
+    console.log("new goal:", newGoalText)
+  }, [newGoalText])
 
   return (
     <View style={styles.container}>
-      <View style={styles.inputContainer}>
-        <TextInput
-          onChangeText={text => { /* onChangeText={textChangeHandler} */
-            setNewGoal(text)
-          }}
-          style={styles.textInput}
-          placeholder='Input your Goal!!'
-        />
-        <Button title='Add Goal'
-          onPress={addGoalHandler}
-         />
-      </View>
+      <GoalInput onNewGoal={addGoalHandler} />
+      
       <View style={styles.goalsContainer}>
         <Text style={styles.goalHeader}>GOALS</Text>
         <FlatList
           data={goals}
           renderItem={
             ({item}) => (
-              <View key={item} style={styles.goalItem}> 
+              <View key={item.id} style={styles.goalItem}> 
                 <Text style={styles.goalText}>
                   {item.text}
                 </Text>
@@ -80,15 +71,6 @@ const styles = new StyleSheet.create({
     flex: 1,
     paddingTop: 40,
     paddingHorizontal: 15
-  },
-  inputContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    borderBottomWidth: 1,
-    borderBottomColor: "#5E4B56",
-    alignItems: 'center'
   },
   textInput: {
     backgroundColor: "#DBD2DA",
