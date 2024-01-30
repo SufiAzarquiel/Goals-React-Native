@@ -1,17 +1,17 @@
 import {
   View,
-  TextInput,
-  Button,
   Text,
   StyleSheet,
   FlatList,
+  Button,
 } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import GoalInput from './components/GoalInput';
+import GoalItem from './components/GoalItem';
 
 export default function App() {
-  const [newGoalText, setNewGoal] = useState("")
   
+  const [modalVisible, setModalVisible] = useState(false)
   const [goals, setGoals] = useState([
     { id: 1, text: "Learn React Native" },
     { id: 2, text: "Learn Redux" },
@@ -24,29 +24,31 @@ export default function App() {
     { id: 9, text: "Learn React Native Safe Area Context" },
   ])
 
-  const addGoalHandler = () => {
+  const addGoalHandler = (newGoalText) => {
     const newGoal = {
       id: Date.now(), 
       text: newGoalText,
     };
 
     setGoals((currentGoals) => [...currentGoals, newGoal]);
-    setNewGoal("");
   };
 
-  // Log goal list on change
-  useEffect(() => {
-    console.log(goals)
-  }, [goals])
-
-  // Log goal text from input on change
-  useEffect(() => {
-    console.log("new goal:", newGoalText)
-  }, [newGoalText])
-
+  
+  const deleteGoalHandler = (id) => {
+    setGoals((currentGoals) => currentGoals.filter(
+      (goal) => goal.id != id
+      ))
+    }
+    
   return (
     <View style={styles.container}>
-      <GoalInput onNewGoal={addGoalHandler} />
+      <Button
+        title='Add new goal!'
+        onPress={() => setModalVisible(true)} />
+
+      <GoalInput onNewGoal={addGoalHandler}
+        onCancel={() => setModalVisible(false)}
+        visible={modalVisible} />
       
       <View style={styles.goalsContainer}>
         <Text style={styles.goalHeader}>GOALS</Text>
@@ -54,11 +56,9 @@ export default function App() {
           data={goals}
           renderItem={
             ({item}) => (
-              <View key={item.id} style={styles.goalItem}> 
-                <Text style={styles.goalText}>
-                  {item.text}
-                </Text>
-              </View>
+              <GoalItem goal={item}
+                key={item.id}
+                onDeleteGoal={deleteGoalHandler} />
             )}
         />
       </View>
@@ -72,27 +72,9 @@ const styles = new StyleSheet.create({
     paddingTop: 40,
     paddingHorizontal: 15
   },
-  textInput: {
-    backgroundColor: "#DBD2DA",
-    borderColor: "#5E4B56",
-    borderWidth: 1,
-    width: "70%",
-    padding: 10,
-    borderRadius: 5,
-  },
   goalsContainer: {
     flex: 5,
     marginTop: 40,
-  },
-  goalItem: {
-    padding: 20,
-    backgroundColor: "#FCD0A1",
-    marginBottom: 10,
-    borderRadius: 10,
-  },
-  goalText: {
-    fontSize: 20,
-    color: "#633503",
   },
   goalHeader: {
     fontSize: 30,
